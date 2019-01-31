@@ -5,8 +5,7 @@ cache:
   directories:
     "node_modules"
 script:
-  - npm run fetch-release
-  - npm run build
+  - npm run fetch-release && npm run build
 deploy:
   provider: pages
   skip_cleanup: true
