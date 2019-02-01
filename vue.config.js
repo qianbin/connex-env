@@ -4,7 +4,7 @@ const path = require('path')
 
 module.exports = {
     lintOnSave: false,
-    publicPath: '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/connex-env/' : '/',
     pwa: {
         workboxOptions: {
             skipWaiting: true,
