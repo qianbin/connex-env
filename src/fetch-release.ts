@@ -21,7 +21,6 @@ function getPlatform(ymlUrl: string): NodeJS.Platform {
 async function fetchLatest() {
     const assets: Asset[] = []
     const data = await httpGet('https://api.github.com/repos/vechain/thor-sync.electron/releases/latest')
-    console.log(data)
     const items = JSON.parse(data).assets as any[]
     for (const item of items) {
         if (item.browser_download_url.endsWith('.yml')) {

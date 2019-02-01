@@ -1,16 +1,6 @@
 export const targetHref = (() => {
-    if (window.location.search) {
-        return window.location.search.slice(1) + window.location.hash
-    }
-    if (document.referrer) {
-        try {
-            if (window.location.host !== new URL(document.referrer).host) {
-                return document.referrer
-            }
-        } catch (err) {
-            // tslint:disable-next-line:no-console
-            console.warn(err)
-        }
+    if (window.location.hash) {
+        return window.location.hash.slice(1)
     }
     return ''
 })()
