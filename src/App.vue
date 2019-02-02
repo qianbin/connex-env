@@ -1,23 +1,17 @@
 <template>
-    <transition-group id="app" tag="div" name="content">
+    <transition-group id="app" tag="div" name="content">        
         <div key="tip">Your browser is missing Connex to run VeChain App</div>
         <div key="app-link" class="app-link">
-            <b
-                class="text-truncate"
-                style="flex:1 1 auto;margin:0rem 1rem;text-align:center;"
-            >{{targetHref}}</b>
+            <span
+                class="text-truncate text-serif"
+                style="flex:1 1 auto;margin:0rem 1rem;text-align:center;font-size:0.9rem;"
+            >{{targetHref}}</span>
             <a class="btn open-btn" style="flex:0 0 auto" @click="openInSync">
                 <b>Open with Sync</b>
             </a>
         </div>
-        <div
-            v-if="!showDownloads"
-            key="download-switch"
-            @click="showDownloads=true"
-            style="cursor:pointer;color:#3573c7;margin-top:1rem;margin-bottom:5rem;"
-        >Downloads</div>
-        <div v-else key="downloads" style="text-align:center;margin:1rem;">
-            <div>Seems VeChain Sync is not installed</div>
+        <div v-if="showDownloads || openFailed" key="downloads" style="text-align:center;margin:1rem;">
+            <div v-if="openFailed">Seems VeChain Sync is not installed</div>
             <div v-if="matchedAsset">
                 <a class="btn download-btn" :href="matchedAsset.url">Download</a>
                 <div style="margin-top:1rem;">
@@ -36,6 +30,12 @@
                 />
             </div>
         </div>
+        <div
+            v-else
+            key="download-switch"
+            @click="showDownloads=true"
+            style="cursor:pointer;color:#3573c7;margin-top:1rem;margin-bottom:5rem;"
+        >Downloads</div>
         <!-- cache images -->
         <div key="cache" v-show="false">
             <DownloadBrick v-for="(item,i) in assets" :key="i" :asset="item"/>
@@ -59,7 +59,7 @@ const customProtocolDetection = require('custom-protocol-detection')
 export default class App extends Vue {
     private connex = window.connex || null
     private targetHref = targetHref
-    private platform = platform
+    private platform = platform || null
 
     private assets = (require('./sync-release') as Asset[]).sort((a, b) => {
         const order = ['win32', 'darwin', 'linux']
@@ -67,6 +67,7 @@ export default class App extends Vue {
     })
 
     private showDownloads = false
+    private openFailed = false
 
     get matchedAsset() {
         return this.assets.find(a => a.platform === this.platform) || null
@@ -77,10 +78,10 @@ export default class App extends Vue {
     private openInSync() {
         const vechainAppUrl = 'vechain-app:///' + this.targetHref
         customProtocolDetection(vechainAppUrl,
-            () => this.showDownloads = true,
+            () => { this.showDownloads = true; this.openFailed = true },
             // tslint:disable-next-line:no-console
             () => console.log('opened with sync'),
-            () => this.showDownloads = true)
+            () => { this.showDownloads = true; this.openFailed = true })
     }
     private download(url: string) {
         window.open(url, '_blank')

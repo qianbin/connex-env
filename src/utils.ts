@@ -31,14 +31,17 @@ export const platform = ((): NodeJS.Platform | undefined => {
             return 'darwin'
         case 'Windows':
             return 'win32'
-        case 'Linux':
-        case 'Ubuntu':
-        case 'RedHat':
         case 'CentOS':
         case 'Fedora':
+        case 'Debian':
+        case 'Gentoo':
+        case 'Linux':
+        case 'Mandriva':
         case 'Mint':
+        case 'RedHat':
+        case 'Slackware':
         case 'SUSE':
-        case 'VectorLinux':
+        case 'Ubuntu':
             return 'linux'
     }
 })()

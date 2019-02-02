@@ -13,7 +13,7 @@ body {
 
 body {
   font-size: 0.8rem;
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: auto;
@@ -26,6 +26,10 @@ body {
   white-space: nowrap;
 }
 
+.text-serif {
+  font-family: Georgia, Times, Times New Roman, serif;
+}
+
 * {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
