@@ -1,5 +1,5 @@
 <template>
-    <transition-group id="app" tag="div" name="content">        
+    <transition-group id="app" tag="div" name="content">
         <div key="tip">Your browser is missing Connex to run VeChain App</div>
         <div key="app-link" class="app-link">
             <span
@@ -10,7 +10,11 @@
                 <b>Open with Sync</b>
             </a>
         </div>
-        <div v-if="showDownloads || openFailed" key="downloads" style="text-align:center;margin:1rem;">
+        <div
+            v-if="showDownloads || openFailed"
+            key="downloads"
+            style="text-align:center;margin:1rem;"
+        >
             <div v-if="openFailed">Seems VeChain Sync is not installed</div>
             <div v-if="matchedAsset">
                 <a class="btn download-btn" :href="matchedAsset.url">Download</a>
@@ -98,7 +102,7 @@ export default class App extends Vue {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2rem 0.5rem;
 }
 
 .btn {
@@ -150,7 +154,7 @@ export default class App extends Vue {
     background-color: #f0f0f0;
     padding: 0.15rem 0.15rem;
     border-radius: 3px;
-    max-width: 70%;
+    max-width: 95%;
     min-width: 40%;
     margin: 0.5rem 0rem;
     box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.05) inset;
